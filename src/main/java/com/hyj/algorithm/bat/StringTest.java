@@ -2,10 +2,15 @@ package com.hyj.algorithm.bat;
 
 import java.util.Arrays;
 
+/**
+ * @author houyunjuan
+ */
 public class StringTest {
 	public static void main(String[] args) {
-		String s = "abcdef";
-		reverse(s,s.length(),2);
+		/*String s = "abcdef";
+		reverse(s,s.length(),2);*/
+		//LCS问题  最长递增子序列
+
 	}
 	/**
 	 * �ַ���ѭ����λ  ʱ�临�Ӷ�O(N)  �ռ临�Ӷ�O(1)  ��������ת��
@@ -23,7 +28,7 @@ public class StringTest {
 	}
 	private static void reverseString(char[] charArray, int from, int to) {
 		while(from < to){
-			//�Ƴ�  ��ֵ  ����
+			//交换两个字符的位置
 			char c = charArray[to];
 			charArray[to--] = charArray[from];
 			charArray[from++] = c;
