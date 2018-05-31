@@ -13,6 +13,12 @@
 		    <artifactId>jedis</artifactId>
 		    <version>2.5.2</version>
 		</dependency>
+		<!--谷歌bitmap  -->
+		<dependency>
+		  <groupId>com.googlecode.javaewah</groupId>
+		  <artifactId>JavaEWAH</artifactId>
+		  <version>1.1.0</version>
+		</dependency>
 	</dependencies>
 
 </project>
