@@ -7,13 +7,18 @@
     <groupId>com.hyj</groupId>
     <artifactId>yunkai</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <dependencies>
-        <dependency>
-                <groupId>redis.clients</groupId>
-                <artifactId>jedis</artifactId>
-                <version>2.6.2</version>
-        </dependency>
-
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>2.5.2</version>
+		</dependency>
+		<!--谷歌bitmap  -->
+		<dependency>
+		  <groupId>com.googlecode.javaewah</groupId>
+		  <artifactId>JavaEWAH</artifactId>
+		  <version>1.1.0</version>
+		</dependency>
+	</dependencies>
 
 </project>
