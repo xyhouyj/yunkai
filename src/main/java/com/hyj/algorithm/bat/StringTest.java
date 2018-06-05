@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class StringTest {
 	public static void main(String[] args) {
-		String s = "abcdef";
+		String s = "abcdef";  
 		String reverse = reverse(s);
 //		System.out.println(reverse);
 //		reverse(s,s.length(),2);
