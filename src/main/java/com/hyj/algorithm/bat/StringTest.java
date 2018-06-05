@@ -5,7 +5,9 @@ import java.util.Arrays;
 public class StringTest {
 	public static void main(String[] args) {
 		String s = "abcdef";
-		reverse(s,s.length(),2);
+		String reverse = reverse(s);
+		System.out.println(reverse);
+//		reverse(s,s.length(),2);
 	}
 	/**
 	 * �ַ���ѭ����λ  ʱ�临�Ӷ�O(N)  �ռ临�Ӷ�O(1)  ��������ת��
@@ -31,6 +33,14 @@ public class StringTest {
 		
 	}
 	
-	
-	
+	/**
+	 * 字符串反转
+	 * @param originStr
+	 * @return
+	 */
+	public static String reverse(String originStr) {  
+        if(originStr == null || originStr.length() <= 1)   
+            return originStr;  
+        return reverse(originStr.substring(1)) + originStr.charAt(0);  
+    }  
 }
