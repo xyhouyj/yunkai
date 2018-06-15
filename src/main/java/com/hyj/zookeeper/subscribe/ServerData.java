@@ -1,5 +1,5 @@
 package com.hyj.zookeeper.subscribe;
-
+//记录workServer的工作信息
 public class ServerData {
 //ip地址  id name
 	

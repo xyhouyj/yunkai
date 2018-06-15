@@ -1,7 +1,7 @@
 package com.hyj.zookeeper.subscribe;
 
 import java.io.Serializable;
-
+//记录workServer的配置信息
 public class ServerConfig implements Serializable{
 //数据库的连接地址 用户名 密码
 	private String dbUrl;
@@ -46,5 +46,12 @@ public class ServerConfig implements Serializable{
 		this.dbUser = dbUser;
 	}
 
-
+	@Override
+	public String toString() {
+		return "ServerConfig{" +
+				"dbUrl='" + dbUrl + '\'' +
+				", dbPwd='" + dbPwd + '\'' +
+				", dbUser='" + dbUser + '\'' +
+				'}';
+	}
 }
