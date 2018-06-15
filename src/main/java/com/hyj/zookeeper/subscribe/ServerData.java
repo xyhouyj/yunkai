@@ -34,11 +34,11 @@ public class ServerData {
 	}
 
 	public ServerData(String address, Integer id, String name) {
-		super();
 		this.address = address;
 		this.id = id;
 		this.name = name;
 	}
-	
-	
+
+	public ServerData() {
+	}
 }
