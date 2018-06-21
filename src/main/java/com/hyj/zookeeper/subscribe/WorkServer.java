@@ -53,7 +53,7 @@ public class WorkServer {
                 public void handleDataDeleted(String s) throws Exception {
 
                 }
-            }
+            };
     }
 
     public void start(){

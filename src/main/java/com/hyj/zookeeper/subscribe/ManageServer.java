@@ -61,7 +61,7 @@ public class ManageServer {
             public void handleDataDeleted(String s) throws Exception {
 
             }
-        }
+        };
     }
 
     private void execList(){
