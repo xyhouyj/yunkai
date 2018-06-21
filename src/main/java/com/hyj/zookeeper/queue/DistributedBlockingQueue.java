@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by houyunjuan on 2018/6/21.
- * 组赛分布式队列
+ * 阻塞分布式队列
  */
 public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T> {
 
@@ -23,11 +23,11 @@ public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T> {
     public T poll() throws Exception {
 
         while (true) { // 结束在latch上的等待后，再来一次
-
             final CountDownLatch latch = new CountDownLatch(1);
             final IZkChildListener childListener = new IZkChildListener() {
                 public void handleChildChange(String parentPath, List<String> currentChilds)
                         throws Exception {
+                    //System.out.println("队列数目====" + size());
                     latch.countDown(); // 队列有变化，结束latch上的等待
                 }
             };
@@ -37,6 +37,7 @@ public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T> {
                 if (node != null) {
                     return node;
                 } else {
+                    System.out.println("等等。。。。。。。。。。。。。");
                     latch.await(); // 拿不到队列数据，则在latch上await
                 }
             } finally {

@@ -47,6 +47,7 @@ public class DistributedSimpleQueue<T> {
         } catch (Exception e) {
             throw ExceptionUtil.convertToRuntimeException(e);
         }
+        System.out.println("offer method is executed!!!!!!!!!" + size());
         return true;
     }
 

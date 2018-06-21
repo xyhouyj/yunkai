@@ -16,10 +16,14 @@ public class TestDistributedBlockingQueue {
 
 
         ScheduledExecutorService delayExector = Executors.newScheduledThreadPool(1);
-        int delayTime = 5;
+        int delayTime = 30;
 
-        ZkClient zkClient = new ZkClient("192.168.1.105:2181", 5000, 5000, new SerializableSerializer());
-        final DistributedBlockingQueue<User> queue = new DistributedBlockingQueue<User>(zkClient,"/Queue");
+        ZkClient zkClient = new ZkClient("127.0.0.1:2181", 5000, 5000, new SerializableSerializer());
+        boolean result = zkClient.exists("/Queue_block");
+        if(!result){
+            zkClient.createPersistent("/Queue_block");
+        }
+        final DistributedBlockingQueue<User> queue = new DistributedBlockingQueue<User>(zkClient,"/Queue_block");
 
         final User user1 = new User();
         user1.setId("1");
@@ -36,7 +40,7 @@ public class TestDistributedBlockingQueue {
                 public void run() {
                     try {
                         queue.offer(user1);
-                        queue.offer(user2);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -44,14 +48,28 @@ public class TestDistributedBlockingQueue {
                 }
             }, delayTime , TimeUnit.SECONDS);
 
+            delayExector.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        queue.offer(user2);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            },delayTime+30,TimeUnit.SECONDS);
             System.out.println("ready poll!");
+
             User u1 = (User) queue.poll();
             User u2 = (User) queue.poll();
-
+            System.out.println(u1.toString());
+            System.out.println(u2.toString());
             if (user1.getId().equals(u1.getId()) && user2.getId().equals(u2.getId())){
                 System.out.println("Success!");
             }
-
+            if(user1.getId().equals(u1.getId())){
+                System.out.println("Success");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally{
