@@ -6,7 +6,7 @@ package com.hyj.zookeeper.name;
 public class TestIdMaker {
     public static void main(String[] args) throws Exception {
 
-        IdMaker idMaker = new IdMaker("192.168.1.105:2181",
+        IdMaker idMaker = new IdMaker("127.0.0.1:2181",
                 "/NameService/IdGen", "ID");
         idMaker.start();
 
