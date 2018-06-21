@@ -2,6 +2,9 @@ package com.hyj.algorithm.bat;
 
 import java.io.Serializable;
 
+/**
+ * 树的节点信息
+ */
 public class TreeNode implements Serializable{
 	
 	private int data;
