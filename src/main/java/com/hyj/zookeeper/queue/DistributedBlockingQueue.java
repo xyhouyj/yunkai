@@ -10,7 +10,7 @@ import java.util.concurrent.CountDownLatch;
  * Created by houyunjuan on 2018/6/21.
  * 组赛分布式队列
  */
-public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T>{
+public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T> {
 
 
     public DistributedBlockingQueue(ZkClient zkClient, String root) {
@@ -22,7 +22,7 @@ public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T>{
     @Override
     public T poll() throws Exception {
 
-        while (true){ // 结束在latch上的等待后，再来一次
+        while (true) { // 结束在latch上的等待后，再来一次
 
             final CountDownLatch latch = new CountDownLatch(1);
             final IZkChildListener childListener = new IZkChildListener() {
@@ -32,9 +32,9 @@ public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T>{
                 }
             };
             zkClient.subscribeChildChanges(root, childListener);
-            try{
+            try {
                 T node = super.poll(); // 获取队列数据
-                if ( node != null ){
+                if (node != null) {
                     return node;
                 } else {
                     latch.await(); // 拿不到队列数据，则在latch上await
@@ -45,3 +45,4 @@ public class DistributedBlockingQueue<T> extends DistributedSimpleQueue<T>{
 
         }
     }
+}

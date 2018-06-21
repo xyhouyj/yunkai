@@ -63,6 +63,7 @@ public class DistributedSimpleQueue<T> {
             }
 
             // 排序
+            //目的：队列是先进先出的  排序安装序号从小到大进行 这样先创建的 序号小的 先被取出来
             Collections.sort(list, new Comparator<String>() {
                 public int compare(String lhs, String rhs) {
                     return getNodeNumber(lhs, Node_NAME).compareTo(getNodeNumber(rhs, Node_NAME));
