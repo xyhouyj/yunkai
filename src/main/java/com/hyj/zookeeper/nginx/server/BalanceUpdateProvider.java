@@ -1,4 +1,4 @@
-package com.hyj.zookeeper.com.hyj.zookeeper.nginx.server;
+package com.hyj.zookeeper.nginx.server;
 
 /**
  * Created by houyunjuan on 2018/6/15.

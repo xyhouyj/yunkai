@@ -1,4 +1,4 @@
-package com.hyj.zookeeper.com.hyj.zookeeper.nginx.server;
+package com.hyj.zookeeper.nginx.server;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;

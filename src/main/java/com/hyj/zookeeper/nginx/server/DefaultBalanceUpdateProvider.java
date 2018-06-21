@@ -1,4 +1,4 @@
-package com.hyj.zookeeper.com.hyj.zookeeper.nginx.server;
+package com.hyj.zookeeper.nginx.server;
 
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.exception.ZkBadVersionException;

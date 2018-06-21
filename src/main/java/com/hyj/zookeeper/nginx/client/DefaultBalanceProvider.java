@@ -1,6 +1,6 @@
-package com.hyj.zookeeper.com.hyj.zookeeper.com.hyj.zookeeper.nginx.client;
+package com.hyj.zookeeper.nginx.client;
 
-import com.hyj.zookeeper.com.hyj.zookeeper.nginx.server.ServerData;
+import com.hyj.zookeeper.nginx.server.ServerData;
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.serialize.SerializableSerializer;
 

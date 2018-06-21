@@ -1,10 +1,9 @@
-package com.hyj.zookeeper.com.hyj.zookeeper.master;
+package com.hyj.zookeeper.master;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.hyj.zookeeper.com.hyj.zookeeper.master.RunningDate;
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.exception.ZkException;

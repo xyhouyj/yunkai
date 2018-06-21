@@ -1,6 +1,6 @@
-package com.hyj.zookeeper.com.hyj.zookeeper.com.hyj.zookeeper.nginx.client;
+package com.hyj.zookeeper.nginx.client;
 
-import com.hyj.zookeeper.com.hyj.zookeeper.nginx.server.ServerData;
+import com.hyj.zookeeper.nginx.server.ServerData;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

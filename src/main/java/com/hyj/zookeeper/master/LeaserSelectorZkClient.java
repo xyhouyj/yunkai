@@ -1,4 +1,4 @@
-package com.hyj.zookeeper.com.hyj.zookeeper.master;
+package com.hyj.zookeeper.master;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
