@@ -70,7 +70,7 @@ public class ManageServer {
     //启动的时候  执行两个事件订阅
     private  void  initRunning(){
         zkClient.subscribeDataChanges(commandPath,dataListener);
-        zkClient.unsubscribeChildChanges(serverPath,childListener);
+        zkClient.subscribeChildChanges(serverPath,childListener);
 
     }
 
@@ -99,6 +99,7 @@ public class ManageServer {
     private void execCreate(){
         if(!zkClient.exists(configPath)){
             try{
+                System.out.println("create 方法执行。。。。。");
                 zkClient.createPersistent(configPath, JSON.toJSONString(config).getBytes());
             }catch (ZkNodeExistsException e){//节点已经存在 直接写入数据内容
                 zkClient.writeData(configPath,JSON.toJSONString(config).getBytes());

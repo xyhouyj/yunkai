@@ -13,15 +13,13 @@ public class WorkServer {
     private ZkClient zkClient;
 
     private String configPath;
-
+    // ZooKeeper集群中servers节点的路径
     private String serverPath;
-
+    // 当前工作服务器的基本信息
     private ServerData serverData;
-
+    // 当前工作服务器的配置信息
     private ServerConfig serverConfig;
-
     private IZkDataListener dataListener;//数据监听器
-
     /**
      *
      * @param configPath  zookeeper中config节点的路径
