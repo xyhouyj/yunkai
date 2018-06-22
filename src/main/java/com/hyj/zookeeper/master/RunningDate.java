@@ -29,7 +29,12 @@ public class RunningDate implements Serializable{
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "RunningDate{" +
+				"cid=" + cid +
+				", cname='" + cname + '\'' +
+				'}';
+	}
 }

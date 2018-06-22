@@ -17,13 +17,13 @@ public class WorkerServer {
 	private volatile boolean running = false;//记录服务器的状态
 	
 	private ZkClient zkClient;
-	
+	// Master节点对应zookeeper中的节点路径
 	private static final String MASTER_PATH = "/master";
-	
+	// 监听Master节点删除事件
 	private IZkDataListener dataListener;
-	
+	// 记录当前节点的基本信息
 	private RunningDate serverData;
-	
+	// 记录集群中Master节点的基本信息
 	private RunningDate masterData;
 	
 	private ScheduledExecutorService delayExecutorService = Executors.newScheduledThreadPool(1);
@@ -36,7 +36,7 @@ public class WorkerServer {
 			public void handleDataDeleted(String arg0) throws Exception {
 				// TODO Auto-generated method stub
 			//监测到master节点删除 争抢master
-				if (masterData!=null && masterData.getCname().equals(serverData.getCname())) {
+				/*if (masterData!=null && masterData.getCname().equals(serverData.getCname())) {
 					//如果master的name 和server 的name相同 说明当前服务器就是上一轮的master
 					//此处的判断是对网络抖动造成master下线的一个优化  避免由于再次选出的master 发生变化 造成的资源转移
 					takeMaster();
@@ -49,7 +49,8 @@ public class WorkerServer {
 							takeMaster();
 						}
 					}, delayTime, TimeUnit.SECONDS);
-				}
+				}*/
+				takeMaster();
 			}
 			
 			public void handleDataChange(String arg0, Object arg1) throws Exception {
@@ -90,6 +91,7 @@ public class WorkerServer {
 		try {
 			zkClient.create(MASTER_PATH, serverData, CreateMode.EPHEMERAL);
 			masterData = serverData;
+			System.out.println("master is" + serverData.toString());
 			//每隔5秒钟 释放一次master  方便看到选举的效果
 			delayExecutorService.schedule(new Runnable() {
 				
