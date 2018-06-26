@@ -27,7 +27,7 @@ public class LeaserSelectorZkClient {
 				runningData.setCid(Long.valueOf(i));
 				runningData.setCname("Client #" +i);
 				//创建服务
-				WorkerServer workerServer = new WorkerServer(runningData);
+				WorkerServer workerServer = new Worke扣扣聊天rServer(runningData);
 				workerServer.setZkClient(client);
 				
 				workServers.add(workerServer);
