@@ -38,6 +38,11 @@ ThreadLocal---线程本地变量
             else
                 createMap(t, value);
         }
+ThreadLocalMap 中使用开放地址法来处理散列冲突，而 HashMap 中使用的分离链表法。
+之所以采用不同的方式主要是因为：在 ThreadLocalMap 中的散列值分散的十分均匀，很少会出现冲突。并且 ThreadLocalMap 经常需要清除无用的对象，使用纯数组更加方便。
+线性探测法就是从冲突的数组单元开始，依次往后搜索空单元，如果到数组尾部，再从头开始搜索（环形查找）。
+
+
        初始化的时候 创建map方法：
 void createMap(Thread t, T firstValue) {
         t.threadLocals = new ThreadLocalMap(this, firstValue);
@@ -49,7 +54,19 @@ void createMap(Thread t, T firstValue) {
         2、初始时，在Thread里面，threadLocals为空，当通过ThreadLocal变量调用get()方法或者set()方法，就会对Thread类中的threadLocals进行初始化
         ，并且以当前ThreadLocal变量为键值，以ThreadLocal要保存的副本变量为value，存到threadLocals。
         3、在当前线程里面，如果要使用副本变量，就可以通过get方法在threadLocals里面查找。
+        对应的entry如下：
+static class Entry extends WeakReference<ThreadLocal<?>> {
+   /** The value associated with this ThreadLocal. */
+   Object value;
 
+   Entry(ThreadLocal<?> k, Object v) {
+       super(k);
+       value = v;}
+       Entry是一个以ThreadLocal为key,Object为value的键值对 在Entry的构造方法中，调用了super(k)方法就会将threadLocal实例包装成一个WeakReferenece
+       需要注意的是**Entry中的key是弱引用，当threadLocal外部强引用被置为null(threadLocalInstance=null),那么系统 GC 的时候，
+       根据可达性分析，这个threadLocal实例就没有任何一条链路能够引用到它，这个ThreadLocal势必会被回收，
+       这样一来，ThreadLocalMap中就会出现key为null的Entry，就没有办法访问这些key为null的Entry的value，
+       如果当前线程再迟迟不结束的话，这些key为null的Entry的value就会一直存在一条强引用链：Thread Ref -> Thread -> ThreaLocalMap -> Entry -> value永远无法回收，造成内存泄漏。
 3、ThreadLocal不是用来解决共享对象的多线程访问问题，他是保证线程安全的方式---线程封闭的应用之一。【通过set()方法放到线程中的对象是
    该线程自己使用的对象，其他线程访问不了的；通过get()方法  各线程从自己的map里面获取放进去的对象；通过threadLocal作为key值 每个线程中可有多个threadLocal变量，在
    每个线程里面的threadLocalMap里面 设置多个】
@@ -68,7 +85,8 @@ void createMap(Thread t, T firstValue) {
         }
         return s;
     }
-ThreadLocal不是用来解决对象共享访问问题的，而主要是提供了保持对象的方法和避免参数传递的方便的对象访问方式【空间换时间 保证线程安全的一种方式】。归纳了两点：
+ThreadLocal不是用来解决对象共享访问问题的，而主要是提供了保持对象的方法和避免参数传递的方便的对象访问方式【空间换时间 保证线程安全的一种方式 每个线程都会都拥有自己的“共享资源”无疑内存会大很多，
+但是由于不需要同步也就减少了线程可能存在的阻塞等待的情况从而提高的时间效率。】。归纳了两点：
 1。每个线程中都有一个自己的ThreadLocalMap类对象，可以将线程自己的对象保持到其中，各管各的，线程可以正确的访问到自己的对象。
 2。将一个共用的ThreadLocal静态实例作为key，将不同对象的引用保存到不同线程的ThreadLocalMap中，然后在线程执行的各处通过这个静态ThreadLocal实例的get()方法取得自己线程保存的那个对象，避免了将这个对象作为参数传递的麻烦。
 
