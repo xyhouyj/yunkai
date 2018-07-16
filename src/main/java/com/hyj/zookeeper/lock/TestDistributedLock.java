@@ -24,7 +24,7 @@ public class TestDistributedLock {
 //            mutex1.acquire();
             mutex1.acquire(20000, TimeUnit.MICROSECONDS);
             System.out.println("Client1 locked");
-            long timeStart = System.currentTimeMillis();
+            final long timeStart = System.currentTimeMillis();
             Thread client2Thd = new Thread(new Runnable() {
 
                 public void run() {
